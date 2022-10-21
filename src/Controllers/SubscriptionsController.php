@@ -1671,12 +1671,14 @@ class SubscriptionsController extends BaseController
     /**
      * Lists all usages from a subscription item
      *
-     * @param string  $subscriptionId  The subscription id
-     * @param string  $itemId          The subscription item id
-     * @param integer $page            (optional) Page number
-     * @param integer $size            (optional) Page size
-     * @param string  $code            (optional) Identification code in the client system
-     * @param string  $group           (optional) Identification group in the client system
+     * @param string   $subscriptionId  The subscription id
+     * @param string   $itemId          The subscription item id
+     * @param integer  $page            (optional) Page number
+     * @param integer  $size            (optional) Page size
+     * @param string   $code            (optional) Identification code in the client system
+     * @param string   $group           (optional) Identification group in the client system
+     * @param DateTime $usedSince       (optional) TODO: type description here
+     * @param DateTime $usedUntil       (optional) TODO: type description here
      * @return mixed response from the API call
      * @throws APIException Thrown if API call fails
      */
@@ -1686,7 +1688,9 @@ class SubscriptionsController extends BaseController
         $page = null,
         $size = null,
         $code = null,
-        $group = null
+        $group = null,
+        $usedSince = null,
+        $usedUntil = null
     ) {
 
         //prepare query string for API call
@@ -1704,6 +1708,8 @@ class SubscriptionsController extends BaseController
             'size'            => $size,
             'code'            => $code,
             'group'           => $group,
+            'used_since'      => DateTimeHelper::toRfc3339DateTime($usedSince),
+            'used_until'      => DateTimeHelper::toRfc3339DateTime($usedUntil),
         ));
 
         //validate and preprocess url
